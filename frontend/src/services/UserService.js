@@ -1,9 +1,10 @@
-import axios from 'axios';
+import authService from './authService';
+const api = authService.api;
 
 const userService = {
   list: async () => {
     try {
-      const response = await axios.get(
+      const response = await api.get(
         `${process.env.REACT_APP_SERVER_URL}/users`
       );
       return response.data;
@@ -18,7 +19,7 @@ const userService = {
 
   get: async (id) => {
     try {
-      const response = await axios.get(
+      const response = await api.get(
         `${process.env.REACT_APP_SERVER_URL}/user/${id}`
       );
       return response.data;
@@ -33,7 +34,7 @@ const userService = {
 
   create: async (data) => {
     try {
-      const response = await axios.post(
+      const response = await api.post(
         `${process.env.REACT_APP_SERVER_URL}/user/register`,
         data
       );
@@ -49,9 +50,7 @@ const userService = {
 
   delete: async (id) => {
     try {
-      await axios.delete(
-        `${process.env.REACT_APP_SERVER_URL}/user/delete/${id}`
-      );
+      await api.delete(`${process.env.REACT_APP_SERVER_URL}/user/delete/${id}`);
     } catch (error) {
       throw (
         error.response?.data || {
@@ -62,7 +61,7 @@ const userService = {
   },
   update: async (id, data) => {
     try {
-      const response = await axios.put(
+      const response = await api.put(
         `${process.env.REACT_APP_SERVER_URL}/user/update/${id}`,
         data
       );
