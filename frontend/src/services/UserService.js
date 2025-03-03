@@ -4,9 +4,7 @@ const api = authService.api;
 const userService = {
   list: async () => {
     try {
-      const response = await api.get(
-        `${process.env.REACT_APP_SERVER_URL}/users`
-      );
+      const response = await api.get('/users');
       return response.data;
     } catch (error) {
       throw (

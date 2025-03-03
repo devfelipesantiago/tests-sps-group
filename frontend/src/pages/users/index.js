@@ -1,8 +1,10 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useEffect, useState } from 'react';
 // eslint-disable-next-line no-unused-vars
 import { useNavigate, Link } from 'react-router-dom';
 import userService from '../../services/userService';
 import './users.css';
+import authService from '../../services/authService';
 
 const users = () => {
   const [users, setUsers] = useState([]);
@@ -26,7 +28,7 @@ const users = () => {
   };
 
   const handleLogout = () => {
-    userService.logout();
+    authService.logout();
     navigate('/signin');
   };
 
@@ -66,6 +68,7 @@ const users = () => {
               <th>ID</th>
               <th>Nome</th>
               <th>Email</th>
+              <th>Tipo</th>
               <th>Ações</th>
             </tr>
           </thead>
@@ -76,12 +79,13 @@ const users = () => {
                   <td>{user.id}</td>
                   <td>{user.name}</td>
                   <td>{user.email}</td>
+                  <td>{user.type}</td>
                   <td className="action-buttons">
                     <Link to={`/users/edit/${user.id}`} className="btn-edit">
                       Editar
                     </Link>
                     <button
-                      onClick={() => handleDelete(user.id)}
+                      onClick={() => handleDeleteUser(user.id)}
                       className="btn-delete"
                     >
                       Excluir

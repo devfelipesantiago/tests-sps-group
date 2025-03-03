@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import userService from '../../services/UserService';
+import userService from '../../services/userService';
 import './userEdit.css';
 
 const editUser = () => {
@@ -8,7 +9,7 @@ const editUser = () => {
   const navigate = useNavigate();
   const isEditMode = !!id;
 
-  const [formData, setFormData] = React.useState({
+  const [formData, setFormData] = useState({
     name: '',
     email: '',
     type: '',
@@ -26,7 +27,7 @@ const editUser = () => {
   const fetchUser = async () => {
     try {
       setIsLoading(true);
-      const userData = await userService.getUserById(id);
+      const userData = await userService.get(id);
 
       setFormData({
         name: userData.name,
@@ -35,7 +36,7 @@ const editUser = () => {
         password: '',
       });
 
-      setLoading(false);
+      setIsLoading(false);
     } catch (err) {
       setErrors('An error occurred while fetching user data.');
       setIsLoading(false);
@@ -81,7 +82,7 @@ const editUser = () => {
           {isEditMode ? 'Editar Usuário' : 'Novo Usuário'}
         </h2>
 
-        {error && (
+        {errors && (
           <div className="user-form-error">
             <span>{errors}</span>
           </div>

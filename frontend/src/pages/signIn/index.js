@@ -1,9 +1,10 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState } from 'react';
-import authService from './authService';
+import authService from '../../services/authService';
 import './signIn.css';
+import { useNavigate } from 'react-router-dom';
 
 const signIn = () => {
-  const api = authService.api;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -12,16 +13,15 @@ const signIn = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
     setError('');
     setLoading(true);
 
     try {
-      const response = await api.login(email, password);
-      localStorage.setItem('authToken', response.data.token);
+      const response = await authService.login(email, password);
+      localStorage.setItem('authToken', response);
       navigate('/users');
     } catch (error) {
-      setError(error.response.data.message);
+      setError(error.response?.data?.message || 'Error occurred during login');
     } finally {
       setLoading(false);
     }

@@ -8,7 +8,7 @@ import {
 import SignIn from './pages/signIn';
 import UserList from './pages/users';
 import UserForm from './pages/userEdit';
-import ProtectedRoute from './utils/ProtectedRoute';
+import ProtectRoute from './utils/protectRouter';
 import './App.css';
 
 function App() {
@@ -20,27 +20,27 @@ function App() {
         <Route
           path="/users"
           element={
-            <ProtectedRoute>
+            <ProtectRoute>
               <UserList />
-            </ProtectedRoute>
+            </ProtectRoute>
           }
         />
 
         <Route
           path="/users/new"
           element={
-            <ProtectedRoute>
+            <ProtectRoute>
               <UserForm />
-            </ProtectedRoute>
+            </ProtectRoute>
           }
         />
 
         <Route
           path="/users/edit/:id"
           element={
-            <ProtectedRoute>
+            <ProtectRoute>
               <UserForm />
-            </ProtectedRoute>
+            </ProtectRoute>
           }
         />
 
